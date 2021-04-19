@@ -14,7 +14,7 @@
 
     <!-- Axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-    
+
     <!-- Vue  -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
@@ -45,8 +45,13 @@
 
         <main>
             <div class="container">
-                <div class="box-film">
-
+                <div v-for="film in films" class="box-film">
+                    <h1>{{ film.title }}</h1>
+                    <h1>{{ film.original_title }}</h1>
+                    <img v-if="film.original_language == 'en'" :src="flags.en" class="language-flag" alt="bandiera italiana">
+                    <img v-else-if="film.original_language == 'it'" :src="flags.ita" class="language-flag" alt="bandiera italiana">
+                    <img v-else :src="flags.unk" class="language-flag" alt="bandiera sconosciuta">
+                    <h3>{{ film.vote_average }}</h3>
                 </div>
             </div>
         </main>

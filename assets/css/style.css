@@ -61,3 +61,22 @@ header {
 .header-right .search-button .search-text-button {
     padding-right: 10px;
 }
+
+/* - - - - - - - - - - - - - - - - - - */
+
+/* MAIN */
+main .container{
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+}
+
+.box-film {
+    flex-shrink: 1;
+
+    width: 20%;
+}
+
+img.language-flag {
+    width: 30px;
+}
