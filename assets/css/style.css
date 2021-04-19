@@ -10,5 +10,54 @@ html {
 }
 
 body {
-    background-color: bisque;    
+    background-color: bisque;
+}
+
+/* - - - - - - - - - - - - - - - - - - */
+
+/* HEADER */
+header {
+    display: flex;
+    
+    height: 60px;
+
+    background-color: black;
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+
+.header-left {
+    flex: 1 1 50%;
+    justify-content: flex-start;
+    padding-left: 20px;
+}
+
+.header-right {
+    justify-content: flex-end;
+
+    padding-right: 20px;
+}
+
+.header-left .logo {
+    color: red;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.header-right .search-input {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.header-right .search-button {
+    padding: 5px;
+}
+
+.header-right .search-button .search-text-button {
+    padding-right: 10px;
 }
