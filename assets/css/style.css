@@ -71,7 +71,7 @@ main .container{
     flex-flow: row wrap;
 }
 
-.box-film {
+.box {
     flex-shrink: 1;
 
     width: 20%;

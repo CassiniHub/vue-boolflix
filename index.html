@@ -36,8 +36,8 @@
             </div>
             
             <div class="header-right">
-                <input class="search-input" v-model="searchFilm" type="text" placeholder="Cerca un film...">
-                <button @click="getFilms" class="search-button">
+                <input class="search-input" v-model="search" type="text" placeholder="Cerca un film...">
+                <button @click="getFilms(); getTvSeries();" class="search-button">
                     <span class="search-text-button">Search</span> <i class="fas fa-search"></i>
                 </button>
             </div>
@@ -45,13 +45,23 @@
 
         <main>
             <div class="container">
-                <div v-for="film in films" class="box-film">
+                
+                <div v-for="film in films" class="box">
                     <h1>{{ film.title }}</h1>
                     <h1>{{ film.original_title }}</h1>
                     <img v-if="film.original_language == 'en'" :src="flags.en" class="language-flag" alt="bandiera italiana">
                     <img v-else-if="film.original_language == 'it'" :src="flags.ita" class="language-flag" alt="bandiera italiana">
                     <img v-else :src="flags.unk" class="language-flag" alt="bandiera sconosciuta">
                     <h3>{{ film.vote_average }}</h3>
+                </div>
+                
+                <div v-for="tvSerie in tvSeries" class="box">
+                    <h1>{{ tvSerie.name }}</h1>
+                    <h1>{{ tvSerie.original_name }}</h1>
+                    <img v-if="tvSerie.original_language == 'en'" :src="flags.en" class="language-flag" alt="bandiera italiana">
+                    <img v-else-if="tvSerie.original_language == 'it'" :src="flags.ita" class="language-flag" alt="bandiera italiana">
+                    <img v-else :src="flags.unk" class="language-flag" alt="bandiera sconosciuta">
+                    <h3>{{ tvSerie.vote_average }}</h3>
                 </div>
             </div>
         </main>
