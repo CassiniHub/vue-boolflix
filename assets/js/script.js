@@ -4,7 +4,7 @@ function init() {
         el: '#app',
 
         data: {
-            search: '',
+            search: 'ritorno al fut',
             films: [],
             tvSeries: [],
             flags: {
@@ -25,7 +25,7 @@ function init() {
                 })
                 .then(data => {
                     this.films = data.data.results;
-                    console.log(this.films);
+                    this.getStarRange(this.films);
                 })
             },
 
@@ -39,8 +39,30 @@ function init() {
                 })
                 .then(data => {
                     this.tvSeries = data.data.results;
-                    console.log(this.tvSeries);
+                    this.getStarRange(this.tvSeries);
                 })
+            },
+
+            getStarRange: function (array) {
+                const oldMin = 0;
+                const oldMax = 10;
+                const newMin = 0;
+                const newMax = 5;
+
+                for (let i = 0; i < array.length; i++) {
+                    const elem = array[i];
+                    
+                    const oldValue = elem.vote_average;
+
+                    const newValue = Math.round((((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin);
+
+                    elem.vote_average = newValue;
+                    console.log(elem.vote_average);
+                }
+            },
+
+            starsRating: function (elem) {
+                return elem.vote_average * 20;
             }
         },
 
@@ -48,7 +70,7 @@ function init() {
         },
 
         computed: {
-            
+
         }
     });
 }
