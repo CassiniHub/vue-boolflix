@@ -80,11 +80,35 @@ main .container{
     width: 20%;
 }
 
+.box img {
+    
+}
+
 img.language-flag {
     width: 30px;
 }
 
-/* film rating */
+.categories-wrapper {
+    padding: 20px 20px;
+
+    width: 100%;
+}
+
+.films-wrapper,
+.tv-series-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.categories-title {
+    width: 100%;
+
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+}
+
+/* rating */
 .stars-outer {
     position: relative;
     display: inline-block;
@@ -94,7 +118,6 @@ img.language-flag {
     position: absolute;
     top: 0;
     left: 0;
-    white-space: nowrap;
 
     overflow: hidden;
 }
