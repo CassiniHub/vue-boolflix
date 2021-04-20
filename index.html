@@ -52,25 +52,30 @@
                         <h2 class="categories-title">
                             Films
                         </h2>
-                        <div v-for="film in films" class="box">
-                            <img :src="'https://image.tmdb.org/t/p/' + 'w342' + film.backdrop_path" alt="Film poster">
-                            <h3>{{ film.title }}</h3>
-                            <h3>{{ film.original_title }}</h3>
-                            <div class="poster">
-                                <!-- Ver #2 using function -->
-                                <img :src="getLanguageFlag(film)" class="language-flag" alt="">
 
-                                <!-- Ver #1 using flags database object -->
-                                <!-- <img v-if="film.original_language == 'en'" :src="flags.en" class="language-flag" alt="bandiera inglese">
-                                <img v-else-if="film.original_language == 'it'" :src="flags.ita" class="language-flag" alt="bandiera italiana">
-                                <img v-else :src="flags.unk" class="language-flag" alt="bandiera sconosciuta"> -->
-                            </div>
-                            <div class="stars-outer">
-                                <div class="stars-inner" :style="{width: starsRating(film) + '%'}">
-                                    
+                        <!-- boxes -->
+                        <div v-for="film in films" class="box">
+                            <img :src="'https://image.tmdb.org/t/p/' + 'w342' + film.poster_path" alt="Film poster">
+                            <div class="info">
+                                <h4 class="film-title">
+                                    <strong>Titolo: </strong><span>{{ film.title }}</span>
+                                </h4>
+                                <h4 class="film-original-title">
+                                    <strong>Titolo originale: </strong><span>{{ film.original_title }}</span>
+                                </h4>
+                                <div class="language">
+                                    <span>Lingua: </span>
+                                    <img :src="getLanguageFlag(film)" class="language-flag" alt="">
+                                </div>
+                                <div class="rating">
+                                    <span>Voto: </span>
+                                    <div class="stars-outer">
+                                        <div class="stars-inner" :style="{width: starsRating(film) + '%'}">
+                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <h3>{{ film.vote_average }}</h3>
                         </div>
                     </div>
                     <div v-else class="films-wrapper">
@@ -84,29 +89,33 @@
                 <!-- tv series -->
                 <div class="categories-wrapper">
                     <div v-if="tvSeries.length > 0" class="tv-series-wrapper">
-                        <div class="categories-title">
+                        <span class="categories-title">
                             Tv Series
-                        </div>
+                        </span>
+
+                        <!-- boxes -->
                         <div v-for="tvSerie in tvSeries" class="box">
-                            <img :src="'https://image.tmdb.org/t/p/' + 'w185' + tvSerie.backdrop_path" alt="Tv Series poster">
-                            <h3>{{ tvSerie.name }}</h3>
-                            <h3>{{ tvSerie.original_name }}</h3>
-                            <div class="poster">
-
-                                <!-- Ver #2 using function -->
-                                <img :src="getLanguageFlag(tvSerie)" class="language-flag" alt="">
-
-                                <!-- Ver #1 using flags database object -->
-                                <!-- <img v-if="tvSerie.original_language == 'en'" :src="flags.en" class="language-flag" alt="bandiera inglese">
-                                <img v-else-if="tvSerie.original_language == 'it'" :src="flags.ita" class="language-flag" alt="bandiera italiana">
-                                <img v-else :src="flags.unk" class="language-flag" alt="bandiera sconosciuta"> -->
-                            </div>
-                            <div class="stars-outer">
-                                <div class="stars-inner" :style="{width: starsRating(tvSerie) + '%'}">
-                                    
+                            <img :src="'https://image.tmdb.org/t/p/' + 'w342' + tvSerie.poster_path" alt="Tv Series poster">
+                            <div class="info">
+                                <h4 class="tv-serie-title">
+                                    <strong>Titolo: </strong><span>{{ tvSerie.name }}</span>
+                                </h4>
+                                <h4 class="tv-serie-original-title">
+                                    <strong>Titolo originale: </strong><span>{{ tvSerie.original_name }}</span>
+                                </h4>
+                                <div class="language">
+                                    <span>Lingua: </span>
+                                    <img :src="getLanguageFlag(tvSerie)" class="language-flag" alt="">
+                                </div>
+                                <div class="rating">
+                                    <span>Voto: </span>
+                                    <div class="stars-outer">
+                                        <div class="stars-inner" :style="{width: starsRating(tvSerie) + '%'}">
+                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <span>{{ tvSerie.vote_average }}</span>
                         </div>
                     </div>
 

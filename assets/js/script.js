@@ -9,7 +9,7 @@ function init() {
             tvSeries: []
             // Ver #1 img poster
             // flags: {
-            //     ita: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg',
+            //     it: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg',
             //     en : 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
             //     unk: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Flag.svg'
             // }
@@ -41,6 +41,7 @@ function init() {
                 .then(data => {
                     this.tvSeries = data.data.results;
                     this.getStarRange(this.tvSeries);
+                    console.log(this.tvSeries);
                 })
             },
 
@@ -48,6 +49,7 @@ function init() {
                 let urlImg = '';
                 let language = elem.original_language;
 
+                console.log('hello');
                 switch (true) {
                     case language === 'en':
                         urlImg = 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg';
@@ -83,7 +85,6 @@ function init() {
 
                     // change the old value inside the array (films / tvSeries) with the new value
                     elem.vote_average = newValue;
-                    console.log(elem.vote_average);
                 }
             },
 
@@ -97,7 +98,11 @@ function init() {
         },
 
         computed: {
-
+            merge: function () {
+                let mergedArray = [...this.films, ...this.tvSeries];
+                
+                return mergedArray;
+            }
         }
     });
 }
