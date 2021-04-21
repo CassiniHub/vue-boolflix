@@ -54,7 +54,7 @@
                         </h2>
 
                         <!-- boxes -->
-                        <div v-for="film in modifiedFilms" class="box">
+                        <div v-for="(film, index) in modifiedFilms" class="box">
                             <img :src="'https://image.tmdb.org/t/p/' + 'w342' + film.poster_path" alt="Film poster">
                             <div class="info">
                                 <h4 class="film-title">
@@ -75,9 +75,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h4 class="film-title">
-                                    <strong>Cast: </strong><span v-for="actor in film.cast"> {{ actor }}</span>
+                                <h4 v-if="showIndexFilm === index" class="film-title">
+                                    <strong>Cast: </strong><br><span v-for="actor in filmCast.actors"> {{ actor.name }}<br></span>
                                 </h4>
+                                <button @click="getFilmCast(film.id); showIndexFilm = index">Show Cast</button>
                             </div>
                         </div>
                     </div>
@@ -97,7 +98,7 @@
                         </span>
 
                         <!-- boxes -->
-                        <div v-for="tvSerie in modifiedTvSeries" class="box">
+                        <div v-for="(tvSerie, index) in modifiedTvSeries" class="box">
                             <img :src="'https://image.tmdb.org/t/p/' + 'w342' + tvSerie.poster_path" alt="Tv Series poster">
                             <div class="info">
                                 <h4 class="tv-serie-title">
@@ -118,6 +119,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <h4 v-if="showIndexTvSeries === index" class="film-title">
+                                    <strong>Cast: </strong><br><span v-for="actor in tvSeriesCast.actors"> {{ actor.name }}<br></span>
+                                </h4>
+                                <button @click="getTvSeriesCast(tvSerie.id); showIndexTvSeries = index">Show Cast</button>
                             </div>
                         </div>
                     </div>

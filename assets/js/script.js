@@ -5,12 +5,18 @@ function init() {
 
         data: {
             search: 'ritorno al fut',
+
             films: [],
-            filmCast: [],
-            tvSeries: []
+            filmCast: {},
+            showIndexFilm: null,
+
+            tvSeries: [],
+            tvSeriesCast: [],
+            showIndexTvSeries: null
         },
 
         methods: {
+            // Get films data from API
             getFilms: function () {
                 axios.get('https://api.themoviedb.org/3/search/movie', {
 
@@ -24,6 +30,30 @@ function init() {
                 })
             },
 
+            // Get films cast data from API
+            getFilmCast: function (id) {
+                axios.get('https://api.themoviedb.org/3/movie/' + id + '/credits', {
+
+                        params: {
+                            'api_key': '4112d8611cb3fa646e80b753d8213869',
+                        }
+                    })
+                    .then(data => {
+                        let actors = [...data.data.cast];
+                        actors.splice(5);
+                        
+                        // Create the object of the selected film
+                        let filmCast = {
+                            id: id,
+                            actors: actors
+                        }
+                        
+                        // Link the created object to the data one
+                        this.filmCast = filmCast;
+                    })
+            },
+
+            // Get tv series data from API
             getTvSeries: function () {
                 axios.get('https://api.themoviedb.org/3/search/tv', {
 
@@ -35,6 +65,29 @@ function init() {
                 .then(data => {
                     this.tvSeries = data.data.results;
                 })
+            },
+
+            // Get tv series cast data from API
+            getTvSeriesCast: function (id) {
+                axios.get('https://api.themoviedb.org/3/tv/' + id + '/credits', {
+
+                        params: {
+                            'api_key': '4112d8611cb3fa646e80b753d8213869',
+                        }
+                    })
+                    .then(data => {
+                        let actors = [...data.data.cast];
+                        actors.splice(5);
+                        
+                        // Create the object of the selected tv series
+                        let tvSeriesCast = {
+                            id: id,
+                            actors: actors
+                        }
+
+                        // Link the created object to the data one
+                        this.tvSeriesCast = tvSeriesCast;
+                    })
             },
 
             // Get % of the full stars to show in html
@@ -66,28 +119,7 @@ function init() {
 
                     // change the rating system from 1 / 10 to 1 / 5
                     newFilm.vote_average = Math.floor(newFilm.vote_average / 2);
-
-                    // Get the first 5 result of the cast of each film
-                    const filmId = newFilm.id;
-                    axios.get('https://api.themoviedb.org/3/movie/' + filmId + '/credits', {
-
-                        params: {
-                            'api_key': '4112d8611cb3fa646e80b753d8213869',
-                        }
-                    })
-                    .then(data => {
-                        newFilm.cast = data.data.cast;
-                        newFilm.cast.splice(5);
-
-                        const actorsNames = newFilm.cast.map(actor => {
-                            let name = actor.name;
-
-                            return name;
-                        });
-
-                        newFilm.cast = actorsNames;
-                    })
-
+                    
                     return newFilm;
                 });
 
