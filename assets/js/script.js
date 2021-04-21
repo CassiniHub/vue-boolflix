@@ -36,27 +36,6 @@ function init() {
                 })
             },
 
-            getStarRange: function (array) {
-                // creating needed parameters to calculate the new rating range (from 0 / 10 to 0 / 5)
-                const oldMin = 0;
-                const oldMax = 10;
-                const newMin = 0;
-                const newMax = 5;
-
-                for (let i = 0; i < array.length; i++) {
-                    const elem = array[i];
-                    
-                    // get the old value
-                    const oldValue = elem.vote_average;
-
-                    // get the new value
-                    const newValue = Math.round((((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin);
-
-                    // change the old value inside the array (films / tvSeries) with the new value
-                    elem.vote_average = newValue;
-                }
-            },
-
             // Get % ov the full stars to show in html
             starsRating: function (elem) {
                 return elem.vote_average * 20;
