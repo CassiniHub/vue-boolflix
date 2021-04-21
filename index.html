@@ -36,7 +36,7 @@
             </div>
             
             <div class="header-right">
-                <input class="search-input" v-model="search" type="text" placeholder="Cerca un film...">
+                <input @keyup.enter="getFilms(); getTvSeries();" class="search-input" v-model="search" type="text" placeholder="Cerca...">
                 <button @click="getFilms(); getTvSeries();" class="search-button">
                     <span class="search-text-button">Search</span> <i class="fas fa-search"></i>
                 </button>
@@ -54,7 +54,7 @@
                         </h2>
 
                         <!-- boxes -->
-                        <div v-for="film in films" class="box">
+                        <div v-for="film in modifiedFilms" class="box">
                             <img :src="'https://image.tmdb.org/t/p/' + 'w342' + film.poster_path" alt="Film poster">
                             <div class="info">
                                 <h4 class="film-title">
@@ -65,7 +65,7 @@
                                 </h4>
                                 <div class="language">
                                     <span>Lingua: </span>
-                                    <img :src="getLanguageFlag(film)" class="language-flag" alt="">
+                                    <img :src="film.languageFlag" class="language-flag" alt="">
                                 </div>
                                 <div class="rating">
                                     <span>Voto: </span>
@@ -94,7 +94,7 @@
                         </span>
 
                         <!-- boxes -->
-                        <div v-for="tvSerie in tvSeries" class="box">
+                        <div v-for="tvSerie in modifiedTvSeries" class="box">
                             <img :src="'https://image.tmdb.org/t/p/' + 'w342' + tvSerie.poster_path" alt="Tv Series poster">
                             <div class="info">
                                 <h4 class="tv-serie-title">
@@ -105,7 +105,7 @@
                                 </h4>
                                 <div class="language">
                                     <span>Lingua: </span>
-                                    <img :src="getLanguageFlag(tvSerie)" class="language-flag" alt="">
+                                    <img :src="tvSerie.languageFlag" class="language-flag" alt="">
                                 </div>
                                 <div class="rating">
                                     <span>Voto: </span>

@@ -7,12 +7,6 @@ function init() {
             search: 'ritorno al fut',
             films: [],
             tvSeries: []
-            // Ver #1 img poster
-            // flags: {
-            //     it: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg',
-            //     en : 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg',
-            //     unk: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Flag.svg'
-            // }
         },
 
         methods: {
@@ -26,7 +20,6 @@ function init() {
                 })
                 .then(data => {
                     this.films = data.data.results;
-                    this.getStarRange(this.films);
                 })
             },
 
@@ -40,31 +33,7 @@ function init() {
                 })
                 .then(data => {
                     this.tvSeries = data.data.results;
-                    this.getStarRange(this.tvSeries);
-                    console.log(this.tvSeries);
                 })
-            },
-
-            getLanguageFlag: function (elem) {
-                let urlImg = '';
-                let language = elem.original_language;
-
-                console.log('hello');
-                switch (true) {
-                    case language === 'en':
-                        urlImg = 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg';
-                        break;
-                    
-                    case language === 'it':
-                        urlImg = 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg';
-                        break;
-
-                    default:
-                        urlImg = 'https://upload.wikimedia.org/wikipedia/commons/6/61/Flag.svg';
-                        break;
-                }
-
-                return urlImg;
             },
 
             getStarRange: function (array) {
@@ -88,7 +57,7 @@ function init() {
                 }
             },
 
-            // 
+            // Get % ov the full stars to show in html
             starsRating: function (elem) {
                 return elem.vote_average * 20;
             }
@@ -98,10 +67,56 @@ function init() {
         },
 
         computed: {
-            merge: function () {
-                let mergedArray = [...this.films, ...this.tvSeries];
-                
-                return mergedArray;
+            modifiedFilms: function () {
+                let newFilmsArray = this.films.map(film => {
+
+                    // Create a copy of every film object to manipulate without modifying the original object
+                    let newFilm = {...film}
+
+                    // Add flag key to every film object
+                    if (newFilm.original_language == 'en') {
+                        newFilm.languageFlag = 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg';
+
+                    } else if (newFilm.original_language == 'it') {
+                        newFilm.languageFlag = 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg';
+
+                    } else {
+                        newFilm.languageFlag = 'https://upload.wikimedia.org/wikipedia/commons/6/61/Flag.svg';
+                    }
+
+                    // change the rating system from 1 / 10 to 1 / 5
+                    newFilm.vote_average = Math.floor(newFilm.vote_average / 2);
+
+                    return newFilm;
+                });
+
+                return newFilmsArray;
+            },
+
+            modifiedTvSeries: function () {
+                let newTvSeriesArray = this.tvSeries.map(tvSerie => {
+
+                    // Create a copy of every film object to manipulate without modifying the original object
+                    let newTvSerie = {...tvSerie}
+
+                    // Add flag key to every film object
+                    if (newTvSerie.original_language == 'en') {
+                        newTvSerie.languageFlag = 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg';
+
+                    } else if (newTvSerie.original_language == 'it') {
+                        newTvSerie.languageFlag = 'https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg';
+
+                    } else {
+                        newTvSerie.languageFlag = 'https://upload.wikimedia.org/wikipedia/commons/6/61/Flag.svg';
+                    }
+
+                    // change the rating system from 1 / 10 to 1 / 5
+                    newTvSerie.vote_average = Math.floor(newTvSerie.vote_average / 2);
+
+                    return newTvSerie;
+                });
+
+                return newTvSeriesArray;
             }
         }
     });
