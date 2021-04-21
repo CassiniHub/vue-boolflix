@@ -6,6 +6,7 @@ function init() {
         data: {
             search: 'ritorno al fut',
             films: [],
+            filmCast: [],
             tvSeries: []
         },
 
@@ -36,7 +37,7 @@ function init() {
                 })
             },
 
-            // Get % ov the full stars to show in html
+            // Get % of the full stars to show in html
             starsRating: function (elem) {
                 return elem.vote_average * 20;
             }
@@ -65,6 +66,27 @@ function init() {
 
                     // change the rating system from 1 / 10 to 1 / 5
                     newFilm.vote_average = Math.floor(newFilm.vote_average / 2);
+
+                    // Get the first 5 result of the cast of each film
+                    const filmId = newFilm.id;
+                    axios.get('https://api.themoviedb.org/3/movie/' + filmId + '/credits', {
+
+                        params: {
+                            'api_key': '4112d8611cb3fa646e80b753d8213869',
+                        }
+                    })
+                    .then(data => {
+                        newFilm.cast = data.data.cast;
+                        newFilm.cast.splice(5);
+
+                        const actorsNames = newFilm.cast.map(actor => {
+                            let name = actor.name;
+
+                            return name;
+                        });
+
+                        newFilm.cast = actorsNames;
+                    })
 
                     return newFilm;
                 });
